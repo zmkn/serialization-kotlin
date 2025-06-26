@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.zmkn.jackson.module.datetime.DatetimeJacksonModule
+import com.zmkn.jackson.module.time.TimeJacksonModule
 
 class Jackson(
     mapper: ObjectMapper,
@@ -50,7 +51,7 @@ class Jackson(
             configure(JsonParser.Feature.INCLUDE_SOURCE_IN_LOCATION, true) // 在错误报告中包含原始输入源的信息
             configure(JsonGenerator.Feature.COMBINE_UNICODE_SURROGATES_IN_UTF8, true) // 在 UTF-8 编码输出中，将 Unicode 代理对（surrogate pairs）组合成单个字符
         }.also {
-            it.registerModule(defaultKotlinModuleBuilder.build()).registerModule(DatetimeJacksonModule.all)
+            it.registerModule(defaultKotlinModuleBuilder.build()).registerModule(DatetimeJacksonModule.all).registerModule(TimeJacksonModule.all)
         }
     }
 }
