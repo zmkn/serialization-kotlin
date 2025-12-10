@@ -1,11 +1,11 @@
 [versions]
-kotlin = "[2.2,3.0)"
-ktlint = "[12.1,13.0)"
-shadow = "[8.3,9.0)"
-jreleaser = "[1.16,2.0)"
+kotlin = "[2.3,3.0)"
+ktlint = "[14.0,15.0)"
+shadow = "[9.3,10.0)"
+jreleaser = "[1.21,2.0)"
 kotlinTimeJacksonModule = "1.0.1-SNAPSHOT"
 kotlinxDatetimeJacksonModule = "1.0.1-SNAPSHOT"
-jackson = "[2.18,3.0)"
+jackson = "[2.20,3.0)"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

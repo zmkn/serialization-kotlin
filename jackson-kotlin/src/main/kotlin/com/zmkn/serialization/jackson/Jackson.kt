@@ -35,7 +35,7 @@ class Jackson(
         }
         val objectMapper = ObjectMapper().apply {
             // 注册 Kotlin 模块以支持 Kotlin 数据类
-            setSerializationInclusion(JsonInclude.Include.NON_NULL) // 忽略所有值为 null 的属性
+            setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL) // 忽略所有值为 null 的属性
             // 配置序列化特性
             enable(SerializationFeature.INDENT_OUTPUT) // 在输出时美化打印JSON格式
             enable(SerializationFeature.CLOSE_CLOSEABLE) // 使实现了 Closeable 接口的对象（例如文件流或网络连接）都会被自动关闭
