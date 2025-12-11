@@ -6,25 +6,29 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.databind.json.JsonMapper
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.zmkn.jackson.module.datetime.DatetimeJacksonModule
 import com.zmkn.jackson.module.time.TimeJacksonModule
 
 class Jackson(
-    mapper: ObjectMapper,
+    mapper: JsonMapper,
     initializer: ObjectMapper.() -> Unit = {},
     kotlinModuleInitializer: KotlinModule.Builder.() -> Unit = {},
 ) {
     constructor(initializer: ObjectMapper.() -> Unit = {}, kotlinModuleInitializer: KotlinModule.Builder.() -> Unit = {}) : this(
-        Companion.objectMapper, initializer, kotlinModuleInitializer
+        Companion.jsonMapper, initializer, kotlinModuleInitializer
     )
 
-    constructor() : this(Companion.objectMapper)
+    constructor() : this(Companion.jsonMapper)
 
-    val objectMapper: ObjectMapper = mapper.copy().apply(initializer).registerModule(
-        defaultKotlinModuleBuilder.apply(kotlinModuleInitializer).build()
-    )
+    val jsonMapper: JsonMapper = mapper.copy().apply {
+        initializer()
+        registerModule(
+            defaultKotlinModuleBuilder.apply(kotlinModuleInitializer).build()
+        )
+    }
 
     companion object {
         val defaultKotlinModuleBuilder = KotlinModule.Builder().apply {
@@ -33,7 +37,7 @@ class Jackson(
             enable(KotlinFeature.KotlinPropertyNameAsImplicitName) // 使用属性名进行序列化，确保与 Kotlin 的命名规则一致，避免因 getter 名称不同导致的问题
             enable(KotlinFeature.UseJavaDurationConversion) // 允许使用 JavaTimeModule 处理 Kotlin 的 Duration 类型，并需要在 getter 或 field 上声明 @JsonFormat 注解
         }
-        val objectMapper = ObjectMapper().apply {
+        val jsonMapper = JsonMapper().apply {
             // 注册 Kotlin 模块以支持 Kotlin 数据类
             setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL) // 忽略所有值为 null 的属性
             // 配置序列化特性
