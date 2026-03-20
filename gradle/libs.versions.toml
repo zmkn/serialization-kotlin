@@ -2,7 +2,7 @@
 kotlin = "[2.3,3.0)"
 ktlint = "[14.0,15.0)"
 shadow = "[9.3,10.0)"
-jreleaser = "[1.21,2.0)"
+jreleaser = "[1.23,2.0)"
 kotlinTimeJacksonModule = "2.0.0-SNAPSHOT"
 kotlinxDatetimeJacksonModule = "2.0.0-SNAPSHOT"
 toolsJacksonBom = "[3.0,4.0)"
